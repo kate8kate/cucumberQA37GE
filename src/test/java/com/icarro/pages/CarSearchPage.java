@@ -1,12 +1,15 @@
 package com.icarro.pages;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
+
 public class CarSearchPage extends BasePage{
-    Actions actions = new Actions(driver);
+
+    Actions builder = new Actions(driver);
     public CarSearchPage(WebDriver driver) {
         super(driver);
     }
@@ -15,16 +18,18 @@ public class CarSearchPage extends BasePage{
 
     @FindBy(id = "dates")
     WebElement inputDates;
-    @FindBy(xpath = "//td[@aria-label='June 15, 2024']")
+    @FindBy(xpath = "//div[@class='mat-calendar-body-cell-content' and text()='10']")
     WebElement startDay;
 
-    @FindBy(xpath = "//td[@aria-label='June 20, 2024']")
+    @FindBy(xpath = "//div[@class='mat-calendar-body-cell-content' and text()='15']")
     WebElement endDay;
 
     @FindBy(xpath = "//div[@class = 'car-card']")
     WebElement carCard;
+
     public CarSearchPage fillCityName(String city) {
         type(inputCity, city);
+        builder.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).build().perform();
         return this;
     }
 
